@@ -6,6 +6,13 @@
 
 from datetime import datetime, timezone, date
 import calendar
+import json
+import os
+
+class DatalakeReportsException(Exception):
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(self.message)
 
 def get_param_value_by_name(params: list, value: str) -> str:
     try:
@@ -39,10 +46,12 @@ def get_basic_value(base, value):
 
 
 def get_value(base, prop, value):
-    if prop in base:
-        return get_basic_value(base[prop], value)
-    return '-'
-
+    try:
+        if prop in base:
+            return get_basic_value(base[prop], value)
+        return '-'
+    except Exception:
+        return '-'
 
 def convert_to_datetime(param_value):
     if param_value == "" or param_value == "-" or param_value is None:
@@ -81,65 +90,20 @@ def get_discount_level(discount_group: str) -> str:
 
     return discount
 
-PRODUCT_FIELDS = [
-   {
-      "id": "Adobe",
-      "products":[
-          "PRD-207-752-513", "PRD-466-278-670", "PRD-308-433-016", "PRD-265-651-368"
-      ],
-      "fields":{
-         "vip":"adobe_vip_number",
-         "order":"adobe_order_id",
-         "transfer":"transfer_id",
-         "action":"action_type",
-         "mail":"adobe_user_email",
-         "customer_id":"adobe_customer_id",
-         "discount_group":"discount_group"
-      }
-   },
-   {
-      "id": "Microsoft NCE",
-      "products":[
-         "PRD-450-658-035", "PRD-007-563-386", "PRD-136-332-888", "PRD-672-364-473"
-      ],
-      "fields":{
-         "vip":"microsoft_subscription_id",
-         "order":"microsoft_order_id",
-         "transfer":"",
-         "action":"",
-         "mail":"microsoft_domain",
-         "customer_id":"customer_id",
-         "discount_group":""
-      }
-   },
-   {
-      "id": "Azure NCE",
-      "products":[
-         "PRD-421-575-828"
-      ],
-      "fields":{
-         "vip":"subscription_id",
-         "order":"csp_order_id",
-         "transfer":"nce_migration_id",
-         "action":"migration_type",
-         "mail":"microsoft_domain",
-         "customer_id":"ms_customer_id",
-         "discount_group":"cart_id"
-      }
-   },
-   {
-      "id": "Azure RI",
-      "products":[
-         "PRD-815-848-109"
-      ],
-      "fields":{
-         "vip":"asset_recon_id",
-         "order":"",
-         "transfer":"",
-         "action":"",
-         "mail":"microsoft_domain",
-         "customer_id":"customer_id",
-         "discount_group":""
-      }
-   }
-]
+
+def get_all_products(parameters):
+    if parameters.get('connexion_type') and parameters['connexion_type']['all'] is True:
+        raise DatalakeReportsException("Please, select [preview and/or test] or [production]")
+    all_products = [product for x in select_config(parameters) for product in x["products"]]
+    return all_products
+
+def select_config(parameters):
+    json_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'conf.json')
+    with open(json_file_path, 'r') as json_file:
+        data = json.load(json_file)
+    print(parameters)
+    if (parameters.get('connexion_type').get("choices")[0]) in ["preview", "test"]:
+        res = [x.get("data") for x in data.get("conf") if x.get("id") == "PRODUCT_FIELDS_DEV"][0]
+    if (parameters.get('connexion_type').get("choices")[0]) in ["production"]:
+        res = [x.get("data") for x in data.get("conf") if x.get("id") == "PRODUCT_FIELDS_PRO"][0]
+    return res

@@ -1,20 +1,19 @@
-# Report Requests
+# Report Approved Requests
 
 
 This report creates an Excel file with details about all approved requests with subscription scope parameters
 
 
-# Available parameters
+## Available parameters
 
 Request can be parametrized by:
 
 * Request creation date range
-* Product (Of a custom list of products)
 * Marketplace
 * Environment
 * Request Type
 
-# Columns
+## Columns
 * Request ID
 * Connect Subscription ID
 * End Customer Subscription ID
