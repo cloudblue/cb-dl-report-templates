@@ -12,18 +12,24 @@ import json
 
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     progress = 0
-    all_products = utils.get_all_products(parameters)
     marketplaces = _get_marketplaces(parameters, client)
     total = marketplaces.count()
-    for m in marketplaces:
-        for hub in m.get("hubs", {}):
+    for marketplace in marketplaces:
+        for hub in marketplace.get("hubs", {}):
             hub_id = utils.get_value(hub, 'hub', 'id')
-            hub_connections = _get_hub_connections(client, hub_id, all_products) if hub_id else {}
+            hub_connections = _get_hub_connections(parameters, client, hub_id) if hub_id else {}
             hub_info = _get_hub(hub_id, client)
+            config = utils.select_config(parameters)
+            all_products = utils.get_all_products(parameters)
+            marketplace_id = utils.get_basic_value(marketplace, 'id')
             for conn in hub_connections:
-                yield(utils.get_basic_value(m, 'id'), # Marketplace ID
-                      utils.get_value(conn, 'product', 'id'), # Partner Id TODO: ¿PARTNER OR PRODUCT_ID?
-                      utils.get_basic_value(m, 'name'), # Marketplace Name
+                partner_id = "-"
+                product_id = utils.get_value(conn, 'product', 'id')
+                if product_id in all_products:
+                    partner_id = _get_partner_id(client, config,  marketplace_id, product_id)
+                yield(utils.get_basic_value(marketplace, 'id'), # Marketplace ID
+                      partner_id, # Partner Id
+                      utils.get_basic_value(marketplace, 'name'), # Marketplace Name
                       utils.get_value(conn, 'provider', 'id'), # Provider ID
                       utils.get_value(conn, 'provider', 'name'), # Provider Name
                       utils.get_value(hub, 'hub',  'id'), # Hub ID
@@ -42,10 +48,11 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
         progress_callback(progress, total)
 
 
-def _get_hub_connections(client, hub_id, all_products):
+def _get_hub_connections(parameters, client, hub_id):
     try:
         query = R()
-        query &= R().product.id.oneof(all_products)
+        if parameters.get('product') and parameters['product']['all'] is False:
+            query &= R().asset.product.id.oneof(parameters['product']['choices'])
         return client.hubs[hub_id].connections.filter(query) or {}
     except Exception as e:
         print("EXCEPTION _get_hub_connections")
@@ -86,3 +93,10 @@ def _get_marketplaces(parameters, client):
         print("EXCEPTION _get_hub_marketplaces")
         print(str(e))
         return {}
+
+def _get_partner_id(client, config, marketplace_id, product_id):
+    query = R()
+    query &= R().marketplace.id.eq(marketplace_id)
+    params = client.products[product_id].configurations.filter(query).all()
+    params = [x for x in params]
+    return utils.get_parameter_value(params, utils.get_product_field_name(config, product_id, 'partner_id'))

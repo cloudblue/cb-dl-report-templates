@@ -35,6 +35,16 @@ def get_param_value(params: list, value: str) -> str:
     except Exception:
         return '-'
 
+def get_parameter_value(params: list, value: str) -> str:
+    try:
+        if params[0]['parameter']['id'] == value:
+            return params[0]['value']
+        if len(params) == 1:
+            return '-'
+        return get_parameter_value(list(params[1:]), value)
+    except Exception:
+        return '-'
+
 
 def get_basic_value(base, value):
     try:
@@ -101,9 +111,14 @@ def select_config(parameters):
     json_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'conf.json')
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)
-    print(parameters)
     if (parameters.get('connexion_type').get("choices")[0]) in ["preview", "test"]:
         res = [x.get("data") for x in data.get("conf") if x.get("id") == "PRODUCT_FIELDS_DEV"][0]
     if (parameters.get('connexion_type').get("choices")[0]) in ["production"]:
         res = [x.get("data") for x in data.get("conf") if x.get("id") == "PRODUCT_FIELDS_PRO"][0]
     return res
+
+def get_product_field_name(config, product_code, field_name):
+    for x in config:
+        if product_code in x["products"]:
+            return x["fields"][field_name]
+    return ''

@@ -16,23 +16,13 @@ from openpyxl import load_workbook
 
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     progress = 0
-    # TODO: HARDCODED
-    parameters = {'date': {'after': '2020-12-31T23:00:00+00:00', 'before': '2023-12-31T23:00:00+00:00'},
-                  'mkp': {'all': True, 'choices': []},
-                  'connexion_type': {'all': False, 'choices': ['preview']}}
     all_products = utils.get_all_products(parameters)
-    print("all_products")
-    print(all_products)
     usage_files = _get_usage_files(parameters, client,  all_products)
-    print(usage_files)
     total = usage_files.count()
-    print("total")
-    print(total)
     for file in usage_files:
-        print(f"------{utils.get_basic_value(file, 'id')}")
         usage_file = _get_usage_file(client, utils.get_basic_value(file, 'id'))
         excel_data = _read_excel_file(usage_file.get("processed_file_uri"))
-        print(excel_data)
+        tier_level = _get_tier_level(utils.get_basic_value(file, "schema"))
         for x in excel_data:
             yield(
             x.get("record_id"),# Record ID UR-2023-08-8243-8211-5060-5873
@@ -44,18 +34,18 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
             x.get("item_name"),# Item Name    Advanced Threat Protection
             x.get("item_mpn"),# Item MPN    Advanced_Threat_Protection
             x.get("quantity"),# Quantity    1
-            x.get(""),# MSRP    27.41155727
-            x.get(""),# Cost    0
-            x.get(""),# Price    0
+            x.get("amount",0) if tier_level == 0 else "",# MSRP    27.41155727
+            x.get("amount",0) if tier_level == 1 else "",# Cost    0
+            x.get("amount",0) if tier_level == 2 else "",# Price    0
             x.get("product_id"),# Product ID    PRD-561-716-033
             utils.get_basic_value(file, "currency"),# Currency    EUR
-            x.get(""),# Schema    pr
+            utils.get_basic_value(file, "schema"),# Schema    pr
             x.get("start_time_utc"),# Start Date    2023-07-01 0:00:00
             x.get("end_time_utc"),# End Date    2023-07-31 23:59:59
-            x.get(""),# to_exchange_rate_by_config    0
-            x.get(""),# to_exchange_rate    -
-            x.get(""),# from_exchange_rate_by_config    0
-            x.get(""),# from_exchange_rate    -
+            x.get("v.to_exchange_rate_by_config"),# to_exchange_rate_by_config    0
+            x.get("v.to_exchange_rate"),# to_exchange_rate    -
+            x.get("v.from_exchange_rate_by_config"),# from_exchange_rate_by_config    0
+            x.get("v.from_exchange_rate"),# from_exchange_rate    -
             x.get("v.entitlement_id"),# entitlement_id    7d395730-0bce-4061-94e8-b68b323612cc
             x.get("v.plan_subscription_id"),# plan_subscription_id    ed76e650-600b-4bb4-d7ff-358f996b40c4
             x.get("v.invoice_number"),# invoice_number    G026626974
@@ -87,7 +77,7 @@ def _get_usage_file(client, file_id):
 def _read_excel_file(url):
     response = requests.get(url)
     if response.status_code != 200:
-        return print({"error": "Failed to download the file"})
+        return {"error": "Failed to download the file"}
     try:
         with io.BytesIO(response.content) as f:
             df = pd.read_excel(f, 'records', engine='openpyxl')
@@ -95,3 +85,14 @@ def _read_excel_file(url):
         return {"error": f"Failed to read the Excel file: {str(e)}"}
 
     return df.to_dict(orient='records')
+
+def _get_tier_level(schema):
+    # TODO : Do it propertly with Tier info?
+    res = 3
+    if schema == "pr":
+        res = 0
+    elif schema == "cr":
+        res = 1
+    elif schema == "tr":
+        res = 2
+    return res

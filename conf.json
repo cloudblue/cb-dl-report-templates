@@ -18,7 +18,8 @@
                         "action":"action_type",
                         "mail":"adobe_user_email",
                         "customer_id":"adobe_customer_id",
-                        "discount_group":"discount_group"
+                        "discount_group":"discount_group",
+                        "partner_id": "distributorid"
                     }
                 },
                 {
@@ -36,7 +37,8 @@
                         "action":"",
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
-                        "discount_group":""
+                        "discount_group":"",
+                        "partner_id": "partner_tenant_id_production"
                     }
                 },
                 {
@@ -51,7 +53,8 @@
                         "action":"migration_type",
                         "mail":"microsoft_domain",
                         "customer_id":"ms_customer_id",
-                        "discount_group":"cart_id"
+                        "discount_group":"cart_id",
+                        "partner_id": ""
                     }
                 },
                 {
@@ -66,7 +69,8 @@
                         "action":"",
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
-                        "discount_group":""
+                        "discount_group":"",
+                        "partner_id": ""
                     }
                 }
             ]
@@ -89,7 +93,8 @@
                         "action":"action_type",
                         "mail":"adobe_user_email",
                         "customer_id":"adobe_customer_id",
-                        "discount_group":"discount_group"
+                        "discount_group":"discount_group",
+                        "partner_id": "distributorid"
                     }
                 },
                 {
@@ -107,7 +112,8 @@
                         "action":"",
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
-                        "discount_group":""
+                        "discount_group":"",
+                        "partner_id": "partner_tenant_id_production"
                     }
                 },
                 {
@@ -122,7 +128,8 @@
                         "action":"migration_type",
                         "mail":"microsoft_domain",
                         "customer_id":"ms_customer_id",
-                        "discount_group":"cart_id"
+                        "discount_group":"cart_id",
+                        "partner_id": ""
                     }
                 },
                 {
@@ -137,7 +144,8 @@
                         "action":"",
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
-                        "discount_group":""
+                        "discount_group":"",
+                        "partner_id": ""
                     }
                 }
             ]

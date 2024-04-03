@@ -108,6 +108,13 @@
          "report_spec":"2",
          "parameters":[
             {
+              "id": "product",
+              "type": "product",
+              "name": "Product List",
+              "description": "Select the products you want to include in report",
+              "required": true
+            },
+            {
                "id":"mkp",
                "type":"marketplace",
                "name":"Marketplaces",
@@ -160,7 +167,41 @@
          ],
          "report_spec":"2",
          "parameters":[
-
+            {
+               "id":"date",
+               "type":"date_range",
+               "name":"Report period",
+               "description":"Provide the requests creation date period for the report",
+               "required":true
+            },
+            {
+               "id":"mkp",
+               "type":"marketplace",
+               "name":"Marketplaces",
+               "required":true,
+               "description":"Select the marketplaces you want to include in the report"
+            },
+            {
+            "id":"connexion_type",
+            "type":"checkbox",
+            "name":"Type of Environment",
+            "required":true,
+            "description":"Select the type of environment you want to include in report",
+            "choices":[
+               {
+                  "value":"production",
+                  "label":"Production"
+               },
+               {
+                  "value":"test",
+                  "label":"Test"
+               },
+               {
+                  "value":"preview",
+                  "label":"Preview"
+               }
+            ]
+         }
          ],
          "renderers":[
             {

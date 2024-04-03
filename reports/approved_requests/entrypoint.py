@@ -24,12 +24,12 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
                 utils.get_basic_value(request, 'id'),  # Request ID
                 utils.get_value(request, 'asset', 'id'),  # Connect Subscription ID
                 utils.get_value(request, 'asset', 'external_id'),  # End Customer Subscription ID
-                utils.get_param_value(parameters_list, 'action_type'), # Action
-                utils.get_param_value(parameters_list, get_product_field_name(config, product, 'order')), # Vendor Order #
-                utils.get_param_value(parameters_list, get_product_field_name(config, product, 'transfer')), # Vendor Transfer #
-                utils.get_param_value(parameters_list, get_product_field_name(config, product, 'vip')), # Vendor Subscription
-                utils.get_param_value(parameters_list, get_product_field_name(config, product, 'customer_id')), # Vendor Customer ID
-                utils.get_param_value(parameters_list, get_product_field_name(config, product, 'discount_group')), # Pricing SKU Level (Volume Discount level)
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'action')), # Action
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'order')), # Vendor Order #
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'transfer')), # Vendor Transfer #
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'vip')), # Vendor Subscription
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'customer_id')), # Vendor Customer ID
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'discount_group')), # Pricing SKU Level (Volume Discount level)
                 utils.get_basic_value(item, 'display_name'),  # Product Description
                 utils.get_basic_value(item, 'mpn'),  # Part Number
                 utils.get_basic_value(item, 'period'),  # Product Period
@@ -50,8 +50,8 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
                 utils.get_value(request, 'asset', 'status'),  # Subscription Status
                 utils.convert_to_datetime(utils.get_basic_value(request, 'effective_date')),  # Effective  Date
                 utils.convert_to_datetime(utils.get_basic_value(request, 'created')),  # Creation  Date
-                '',  # Connect Order Type: purchase, cancel... # TODO: is the same as action_type?
-                utils.get_param_value(parameters_list, get_product_field_name(config, product, 'mail')), # Customer Tenant Value
+                utils.get_basic_value(request, 'type'),  # Connect Order Type
+                utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'mail')), # Customer Tenant Value
                 '', # Currency (EMPTY)
                 utils.get_basic_value(request['asset']['connection'], 'type'),  # Connection Type,
                 utils.today_str(),  # Exported At
@@ -82,12 +82,5 @@ def request_approved_requests(client, parameters, all_products):
         query &= R().marketplace.id.oneof(parameters['mkp']['choices'])
 
     query &= R().asset.product.id.oneof(all_products)
-    print(query)
-    print(client.requests.filter(query).order_by("created"))
     return client.requests.filter(query).order_by("created")
 
-def get_product_field_name(config, product_code, field_name):
-    for x in config:
-        if product_code in x["products"]:
-            return x["fields"][field_name]
-    return ''
