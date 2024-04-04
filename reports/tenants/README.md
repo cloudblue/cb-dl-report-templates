@@ -8,10 +8,8 @@ This report creates an Excel file with details about all vendors given a marketp
 
 Request can be parametrized by:
 
-* Request creation date range
 * Product (Of a custom list of products)
 * Marketplace
-* Environment
 * Request Type
 
 ## Columns

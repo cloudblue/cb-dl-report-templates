@@ -1,17 +1,16 @@
-# Report Vendors
+# Report Usage
 
 
-This report creates an Excel file with details about all vendors given a marketplace
+This report creates an Excel file with details about all Usage Records
 
 
 ## Available parameters
 
 Request can be parametrized by:
 
-* Request creation date range
+* Date
 * Marketplace
 * Environment
-* Request Type
 
 ## Columns
 * Record ID	
@@ -44,4 +43,4 @@ Request can be parametrized by:
 * Exported At
 
 
-Command to create report: ccli report execute vendors -d .
+Command to create report: ccli report execute usage -d .

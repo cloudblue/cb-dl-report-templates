@@ -19,7 +19,16 @@
                         "mail":"adobe_user_email",
                         "customer_id":"adobe_customer_id",
                         "discount_group":"discount_group",
-                        "partner_id": "distributorid"
+                        "partner_id": "distributorid",
+                        "to_exchange_rate_by_config": "",
+                        "to_exchange_rate": "",
+                        "from_exchange_rate_by_config": "",
+                        "from_exchange_rate": "",
+                        "entitlement_id": "",
+                        "plan_subscription_id": "",
+                        "invoice_number": "",
+                        "publisher_name": "",
+                        "aobo": ""
                     }
                 },
                 {
@@ -38,7 +47,16 @@
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
                         "discount_group":"",
-                        "partner_id": "partner_tenant_id_production"
+                        "partner_id": "partner_tenant_id_production",
+                        "to_exchange_rate_by_config": "",
+                        "to_exchange_rate": "",
+                        "from_exchange_rate_by_config": "",
+                        "from_exchange_rate": "",
+                        "entitlement_id": "",
+                        "plan_subscription_id": "",
+                        "invoice_number": "",
+                        "publisher_name": "",
+                        "aobo": ""
                     }
                 },
                 {
@@ -54,7 +72,16 @@
                         "mail":"microsoft_domain",
                         "customer_id":"ms_customer_id",
                         "discount_group":"cart_id",
-                        "partner_id": ""
+                        "partner_id": "",
+                        "to_exchange_rate_by_config": "v.to_exchange_rate_by_config",
+                        "to_exchange_rate": "v.to_exchange_rate",
+                        "from_exchange_rate_by_config": "v.from_exchange_rate_by_config",
+                        "from_exchange_rate": "v.from_exchange_rate",
+                        "entitlement_id": "v.entitlement_id",
+                        "plan_subscription_id": "v.plan_subscription_id",
+                        "invoice_number": "v.invoice_number",
+                        "publisher_name": "v.publisher_name",
+                        "aobo": "v.aobo"
                     }
                 },
                 {
@@ -70,7 +97,16 @@
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
                         "discount_group":"",
-                        "partner_id": ""
+                        "partner_id": "",
+                        "to_exchange_rate_by_config": "v.to_exchange_rate_by_config",
+                        "to_exchange_rate": "v.to_exchange_rate",
+                        "from_exchange_rate_by_config": "v.from_exchange_rate_by_config",
+                        "from_exchange_rate": "v.from_exchange_rate",
+                        "entitlement_id": "v.entitlement_id",
+                        "plan_subscription_id": "v.plan_subscription_id",
+                        "invoice_number": "v.invoice_number",
+                        "publisher_name": "v.publisher_name",
+                        "aobo": "v.aobo"
                     }
                 }
             ]
@@ -94,7 +130,16 @@
                         "mail":"adobe_user_email",
                         "customer_id":"adobe_customer_id",
                         "discount_group":"discount_group",
-                        "partner_id": "distributorid"
+                        "partner_id": "distributorid",
+                        "to_exchange_rate_by_config": "",
+                        "to_exchange_rate": "",
+                        "from_exchange_rate_by_config": "",
+                        "from_exchange_rate": "",
+                        "entitlement_id": "",
+                        "plan_subscription_id": "",
+                        "invoice_number": "",
+                        "publisher_name": "",
+                        "aobo": ""
                     }
                 },
                 {
@@ -113,7 +158,16 @@
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
                         "discount_group":"",
-                        "partner_id": "partner_tenant_id_production"
+                        "partner_id": "partner_tenant_id_production",
+                        "to_exchange_rate_by_config": "",
+                        "to_exchange_rate": "",
+                        "from_exchange_rate_by_config": "",
+                        "from_exchange_rate": "",
+                        "entitlement_id": "",
+                        "plan_subscription_id": "",
+                        "invoice_number": "",
+                        "publisher_name": "",
+                        "aobo": ""
                     }
                 },
                 {
@@ -129,7 +183,16 @@
                         "mail":"microsoft_domain",
                         "customer_id":"ms_customer_id",
                         "discount_group":"cart_id",
-                        "partner_id": ""
+                        "partner_id": "",
+                        "to_exchange_rate_by_config": "v.to_exchange_rate_by_config",
+                        "to_exchange_rate": "v.to_exchange_rate",
+                        "from_exchange_rate_by_config": "v.from_exchange_rate_by_config",
+                        "from_exchange_rate": "v.from_exchange_rate",
+                        "entitlement_id": "v.entitlement_id",
+                        "plan_subscription_id": "v.plan_subscription_id",
+                        "invoice_number": "v.invoice_number",
+                        "publisher_name": "v.publisher_name",
+                        "aobo": "v.aobo"
                     }
                 },
                 {
@@ -145,7 +208,16 @@
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
                         "discount_group":"",
-                        "partner_id": ""
+                        "partner_id": "",
+                        "to_exchange_rate_by_config": "v.to_exchange_rate_by_config",
+                        "to_exchange_rate": "v.to_exchange_rate",
+                        "from_exchange_rate_by_config": "v.from_exchange_rate_by_config",
+                        "from_exchange_rate": "v.from_exchange_rate",
+                        "entitlement_id": "v.entitlement_id",
+                        "plan_subscription_id": "v.plan_subscription_id",
+                        "invoice_number": "v.invoice_number",
+                        "publisher_name": "v.publisher_name",
+                        "aobo": "v.aobo"
                     }
                 }
             ]
