@@ -9,6 +9,7 @@ from connect.client import R
 import requests
 import json
 
+
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     all_products = utils.get_all_products(parameters)
     requests = request_approved_requests(client, parameters, all_products)
@@ -59,7 +60,6 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
         progress += 1
         progress_callback(progress, total)
 
-
 def _get_delta_str(item):
     try:
         return str(int(item.get('quantity')) - int(item.get('old_quantity')))
@@ -76,11 +76,10 @@ def request_approved_requests(client, parameters, all_products):
         query &= R().asset.connection.type.oneof(parameters['connexion_type']['choices'])
     if parameters.get('product') and parameters['product']['all'] is False:
         query &= R().asset.product.id.oneof(parameters['product']['choices'])
-    if parameters.get('rr_type') and parameters['rr_type']['all'] is False: #
+    if parameters.get('rr_type') and parameters['rr_type']['all'] is False:
         query &= R().type.oneof(parameters['rr_type']['choices'])
     if parameters.get('mkp') and parameters['mkp']['all'] is False:
         query &= R().marketplace.id.oneof(parameters['mkp']['choices'])
 
     query &= R().asset.product.id.oneof(all_products)
     return client.requests.filter(query).order_by("created")
-

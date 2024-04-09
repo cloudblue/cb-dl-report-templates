@@ -14,6 +14,7 @@ import zipfile
 from io import BytesIO
 from openpyxl import load_workbook
 
+
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     progress = 0
     all_products = utils.get_all_products(parameters)
@@ -58,8 +59,6 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
         progress += 1
         progress_callback(progress, total)
 
-
-
 def _get_usage_files(parameters, client, all_products):
     query = R()
     query &= R().created.ge(parameters['date']['after'])
@@ -71,10 +70,8 @@ def _get_usage_files(parameters, client, all_products):
 
     return client.ns("usage").files.filter(query)
 
-
 def _get_usage_file(client, file_id):
     return client.ns("usage").files[file_id].get()
-
 
 def _read_excel_file(url):
     response = requests.get(url)

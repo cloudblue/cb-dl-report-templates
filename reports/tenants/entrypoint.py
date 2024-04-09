@@ -67,7 +67,6 @@ def _get_hub_marketplaces(client, hub_id):
         print(str(e))
         return {}
 
-
 def _get_hubs(client):
     return client.hubs.all()
 
@@ -81,7 +80,6 @@ def request_vendor(client):
     query &= R().status.eq('active')
     query &= R().role.eq('vendor')
     return client.partners.filter(query)
-
 
 def _get_marketplaces(parameters, client):
     try:

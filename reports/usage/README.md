@@ -8,7 +8,7 @@ This report creates an Excel file with details about all Usage Records
 
 Request can be parametrized by:
 
-* Date
+* Date range
 * Marketplace
 * Environment
 

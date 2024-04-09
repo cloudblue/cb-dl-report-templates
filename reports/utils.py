@@ -108,6 +108,8 @@ def get_all_products(parameters):
     return all_products
 
 def select_config(parameters):
+    if parameters.get('connexion_type') and parameters['connexion_type']['all'] is True:
+        raise DatalakeReportsException("Please, select [preview and/or test] or [production]")
     json_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'conf.json')
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)
