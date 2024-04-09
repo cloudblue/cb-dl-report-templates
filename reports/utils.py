@@ -16,8 +16,8 @@ class DatalakeReportsException(Exception):
 
 def get_param_value_by_name(params: list, value: str) -> str:
     try:
-        if params[0]['name'] == value:
-            return params[0]['value']
+        if params[0]['parameter_name'] == value:
+            return params[0]['parameter_value']
         if len(params) == 1:
             return '-'
         return get_param_value_by_name(list(params[1:]), value)
