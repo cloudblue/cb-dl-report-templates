@@ -117,10 +117,9 @@
                 {
                     "id":"Adobe",
                     "products":[
-                        "PRD-207-752-513",
-                        "PRD-466-278-670",
-                        "PRD-308-433-016",
-                        "PRD-265-651-368"
+                        "PRD-463-843-541",
+                        "PRD-558-006-536",
+                        "PRD-074-473-638"
                     ],
                     "fields":{
                         "vip":"adobe_vip_number",
@@ -145,10 +144,10 @@
                 {
                     "id":"Microsoft NCE",
                     "products":[
-                        "PRD-450-658-035",
-                        "PRD-007-563-386",
-                        "PRD-136-332-888",
-                        "PRD-672-364-473"
+                        "PRD-561-716-033",
+                        "PRD-361-551-319",
+                        "PRD-750-410-786",
+                        "PRD-108-206-764"
                     ],
                     "fields":{
                         "vip":"microsoft_subscription_id",
@@ -173,7 +172,7 @@
                 {
                     "id":"Azure NCE",
                     "products":[
-                        "PRD-421-575-828"
+                        "PRD-814-505-01"
                     ],
                     "fields":{
                         "vip":"subscription_id",
@@ -198,7 +197,7 @@
                 {
                     "id":"Azure RI",
                     "products":[
-                        "PRD-815-848-109"
+                        "PRD-275-843-418"
                     ],
                     "fields":{
                         "vip":"asset_recon_id",
