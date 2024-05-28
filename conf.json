@@ -144,7 +144,7 @@
                 {
                     "id":"Microsoft NCE",
                     "products":[
-                        "PRD-561-716-033",
+                        "PRD-814-505-018",
                         "PRD-361-551-319",
                         "PRD-750-410-786",
                         "PRD-108-206-764"
@@ -172,7 +172,7 @@
                 {
                     "id":"Azure NCE",
                     "products":[
-                        "PRD-814-505-01"
+                        "PRD-561-716-033"
                     ],
                     "fields":{
                         "vip":"subscription_id",
