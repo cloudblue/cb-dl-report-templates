@@ -13,8 +13,8 @@ HEADERS = [
     'Request ID', 'Connect Subscription ID', 'End Customer Subscription ID', 'Action', 'Vendor Order #',
     'Vendor Transfer #', 'Vendor Subscription #', 'Vendor Customer ID', 'Pricing SKU Level (Volume Discount level)',
     'Product Description', 'Part Number', 'Product Period', 'Cumulative Seat', 'Order Delta', 'Reseller ID',
-    'Reseller External ID', 'Reseller Name', 'End Customer Name', 'End Customer External ID', 'Provider ID',
-    'Provider Name', 'Marketplace', 'HUB ID', 'HUB Name' 'Product ID', 'Product Name', 'Subscription Status',
+    'Reseller External ID', 'Reseller ID #', 'Reseller Name', 'End Customer Name', 'End Customer External ID', 'Provider ID',
+    'Provider Name', 'Marketplace', 'HUB ID', 'HUB Name', 'Product ID', 'Product Name', 'Subscription Status',
     'Effective Date', 'Creation Date', 'Connect Order Type', 'Customer Tenant Value', 'Currency',
     'Connection Type', 'Exported At'
 ]
@@ -83,7 +83,8 @@ def _process_line(request, config, product, parameters_list, item):
         utils.get_basic_value(item, 'quantity'),  # Cumulative Seat
         _get_delta_str(item),  # Order Delta
         utils.get_value(request['asset']['tiers'], 'tier1', 'id'),  # Reseller ID (RESELLER EXTERNAL)
-        utils.get_value(request['asset']['tiers'], 'tier1', 'id'),  # Reseller External ID
+        utils.get_value(request['asset']['tiers'], 'tier1', 'external_uid'),  # Reseller External ID
+        utils.get_value(request['asset']['tiers'], 'tier1', 'external_id'),  # Reseller ID #
         utils.get_value(request['asset']['tiers'], 'tier1', 'name'),  # Reseller Name
         utils.get_value(request['asset']['tiers'], 'customer', 'name'),  # End Customer Name
         utils.get_value(request['asset']['tiers'], 'customer', 'external_id'),  # End Customer External ID
