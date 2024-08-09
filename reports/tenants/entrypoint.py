@@ -14,7 +14,7 @@ HEADERS = (
     'Provider ID', 'Provider Name',
     'Hub ID', 'Hub Name', 'Instance GUID',
     'Vendor ID', 'Vendor Name',
-    'Reseller', 'Account 1 ID', 'Reseller Account 2 ID',
+    'Reseller Account 1 ID', 'Reseller Account 2 ID',
     'Syndicated Marketplace ID', 'Syndicated Marketplace Name',
     'Syndicated Provider ID', 'Syndicated Provider Name'
 )
@@ -39,9 +39,11 @@ def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_
             for conn in hub_connections:
                 partner_id = "-"
                 product_id = utils.get_value(conn, 'product', 'id')
-                if product_id in all_products:
-                    partner_id = _get_partner_id(client, config, marketplace_id, product_id)
-                yield _process_line(marketplace, partner_id, conn, hub, hub_info)
+                if product_id in parameters['product']['choices']:
+                    if product_id in all_products:
+                        partner_id = _get_partner_id(client, config, marketplace_id, product_id)
+                    yield _process_line(marketplace, partner_id, conn, hub, hub_info)
+                    break
         progress += 1
         progress_callback(progress, total)
 
@@ -50,7 +52,7 @@ def _get_hub_connections(parameters, client, hub_id):
     try:
         query = R()
         if parameters.get('product') and parameters['product']['all'] is False:
-            query &= R().asset.product.id.oneof(parameters['product']['choices'])
+            query &= R().product.id.oneof(parameters['product']['choices'])
         return client.hubs[hub_id].connections.filter(query) or {}
     except Exception as e:
         print("EXCEPTION _get_hub_connections")

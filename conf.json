@@ -177,8 +177,8 @@
                     "fields":{
                         "vip":"microsoft_subscription_id",
                         "order":"microsoft_order_id",
-                        "transfer":"",
-                        "action":"",
+                        "transfer":"microsoft_plan_subscription_id",
+                        "action":"microsoft_entitlement_id",
                         "mail":"microsoft_domain",
                         "customer_id":"customer_id",
                         "discount_group":"",
