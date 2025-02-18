@@ -33,7 +33,7 @@ Request can be parametrized by:
 * Reseller_Name
 * End_Customer_Name
 * End_Customer_External_ID
-* Provider_ID
+* Provider__ID
 * Provider_Name
 * Marketplace
 * HUB_ID

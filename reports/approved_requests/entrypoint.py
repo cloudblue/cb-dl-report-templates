@@ -13,7 +13,7 @@ HEADERS = [
     'Request_ID', 'Connect_Subscription_ID', 'End_Customer_Subscription_ID', 'Action', 'Vendor_Order__',
     'Vendor_Transfer__', 'Vendor_Subscription__', 'Vendor_Customer_ID', 'Pricing_SKU_Level__Volume_Discount_level_',
     'Product_Description', 'Part_Number', 'Product_Period', 'Cumulative_Seat', 'Order_Delta', 'Reseller_ID',
-    'Reseller_External_ID', 'Reseller_ID__', 'Reseller_Name', 'End_Customer_Name', 'End_Customer_External_ID', 'Provider_ID',
+    'Reseller_External_ID', 'Reseller_ID__', 'Reseller_Name', 'End_Customer_Name', 'End_Customer_External_ID', 'Provider__ID',
     'Provider_Name', 'Marketplace', 'HUB_ID', 'HUB_Name', 'Product_ID', 'Product_Name', 'Subscription_Status',
     'Effective_Date', 'Creation_Date', 'Connect_Order_Type', 'Customer_Tenant_Value', 'Currency',
     'Connection_Type', 'Exported_At'
