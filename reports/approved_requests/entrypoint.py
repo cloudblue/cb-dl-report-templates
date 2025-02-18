@@ -10,7 +10,7 @@ import requests
 import json
 
 HEADERS = [
-    'Request_ID', 'Connect_Subscription ID', 'End_Customer_Subscription_ID', 'Action', 'Vendor_Order__',
+    'Request_ID', 'Connect_Subscription_ID', 'End_Customer_Subscription_ID', 'Action', 'Vendor_Order__',
     'Vendor_Transfer__', 'Vendor_Subscription__', 'Vendor_Customer_ID', 'Pricing_SKU_Level__Volume_Discount_level_',
     'Product_Description', 'Part_Number', 'Product_Period', 'Cumulative_Seat', 'Order_Delta', 'Reseller_ID',
     'Reseller_External_ID', 'Reseller_ID__', 'Reseller_Name', 'End_Customer_Name', 'End_Customer_External_ID', 'Provider_ID',

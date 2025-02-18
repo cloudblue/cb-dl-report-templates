@@ -15,7 +15,7 @@ Request can be parametrized by:
 
 ## Columns
 * Request_ID
-* Connect_Subscription ID
+* Connect_Subscription_ID
 * End_Customer_Subscription_ID
 * Action
 * Vendor_Order__
