@@ -14,7 +14,7 @@ HEADERS = [
     'Vendor_Transfer__', 'Vendor_Subscription__', 'Vendor_Customer_ID', 'Pricing_SKU_Level__Volume_Discount_level_',
     'Product_Description', 'Part_Number', 'Product_Period', 'Cumulative_Seat', 'Order_Delta', 'Reseller_ID',
     'Reseller_External_ID', 'Reseller_ID__', 'Reseller_Name', 'End_Customer_Name', 'End_Customer_External_ID', 'Provider__ID',
-    'Provider_Name', 'Marketplace', 'HUB_ID', 'HUB_Name', 'Product_ID', 'Product_Name', 'Subscription_Status',
+    'Provider_Name', 'Marketplace_ID', 'Marketplace', 'HUB_ID', 'HUB_Name', 'Product_ID', 'Product_Name', 'Subscription_Status',
     'Effective_Date', 'Creation_Date', 'Connect_Order_Type', 'Customer_Tenant_Value', 'Currency',
     'Connection_Type', 'Exported_At'
 ]
@@ -90,6 +90,7 @@ def _process_line(request, config, product, parameters_list, item):
         utils.get_value(request['asset']['tiers'], 'customer', 'external_id'),  # End Customer External ID
         utils.get_value(request['asset']['connection'], 'provider', 'id'),  # Provider ID
         utils.get_value(request['asset']['connection'], 'provider', 'name'),  # Provider Name
+        utils.get_value(request, 'marketplace', 'id'),  # Marketplace ID
         utils.get_value(request, 'marketplace', 'name'),  # Marketplace
         utils.get_value(request['asset']['connection'], 'hub', 'id'),  # HUB ID
         utils.get_value(request['asset']['connection'], 'hub', 'name'),  # HUB Name
