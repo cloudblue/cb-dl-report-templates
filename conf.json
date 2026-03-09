@@ -108,6 +108,57 @@
                         "publisher_name": "v.publisher_name",
                         "aobo": "v.aobo"
                     }
+                },
+                {
+                    "id":"GCP",
+                    "products":[
+                        "PRD-571-250-341"
+                    ],
+                    "fields":{
+                        "vip":"entitlement_id",
+                        "order":"billing_account_id",
+                        "transfer":"entitlement_request_id",
+                        "action":"order_mode",
+                        "mail":"admin_user_email",
+                        "customer_id":"customer_id",
+                        "discount_group":"purchased_offer",
+                        "partner_id": "",
+                        "to_exchange_rate_by_config": "",
+                        "to_exchange_rate": "",
+                        "from_exchange_rate_by_config": "",
+                        "from_exchange_rate": "",
+                        "entitlement_id": "",
+                        "plan_subscription_id": "",
+                        "invoice_number": "",
+                        "publisher_name": "",
+                        "aobo": ""
+                    }
+                },
+                {
+                    "id":"AWS",
+                    "products":[
+                        "PRD-518-835-374",
+                        "PRD-360-337-051"
+                    ],
+                    "fields":{
+                        "vip":"awsAccountId",
+                        "order":"awsCreateOperationId",
+                        "transfer":"inviteHandshakeId",
+                        "action":"orderMode",
+                        "mail":"awsAccountEmail",
+                        "customer_id":"firstAccessIamUserName",
+                        "discount_group":"",
+                        "partner_id": "",
+                        "to_exchange_rate_by_config": "",
+                        "to_exchange_rate": "",
+                        "from_exchange_rate_by_config": "",
+                        "from_exchange_rate": "",
+                        "entitlement_id": "",
+                        "plan_subscription_id": "",
+                        "invoice_number": "",
+                        "publisher_name": "",
+                        "aobo": ""
+                    }
                 }
             ]
         },

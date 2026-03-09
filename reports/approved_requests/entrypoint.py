@@ -22,6 +22,9 @@ HEADERS = [
 
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     all_products = utils.get_all_products(parameters)
+    print("##################################################")
+    print(f"all_products ==>> {all_products}")
+    print("##################################################")
     requests = request_approved_requests(client, parameters, all_products)
     progress = 0
     total = requests.count()
