@@ -9,6 +9,18 @@ from connect.client import R
 import requests
 import json
 
+import logging
+
+# Configuración del log
+logging.basicConfig(
+    level=logging.INFO, # Nivel mínimo para capturar (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("app.log"), # Escribe en el archivo
+        logging.StreamHandler()         # También muestra por consola (opcional)
+    ]
+)
+
 HEADERS = [
     'Request_ID', 'Connect_Subscription_ID', 'End_Customer_Subscription_ID', 'Action', 'Vendor_Order__',
     'Vendor_Transfer__', 'Vendor_Subscription__', 'Vendor_Customer_ID', 'Pricing_SKU_Level__Volume_Discount_level_',
@@ -22,6 +34,8 @@ HEADERS = [
 
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     all_products = utils.get_all_products(parameters)
+    # Ejemplos de uso
+    logging.info(f"all_products ==>> {all_products}")
     print("##################################################")
     print(f"all_products ==>> {all_products}")
     print("##################################################")
