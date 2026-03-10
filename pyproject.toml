@@ -10,10 +10,10 @@ packages = [
 readme = "./README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4"
+python = ">=3.10,<4"
 
-[tool.poetry.dev-dependencies]
-connect-cli = "^31.0"
+[tool.poetry.group.dev.dependencies]
+connect-cli = "^40.6"
 connect-openapi-client = "^29"
 responses= "^0.14"
 pytest = "^6.2.1"
