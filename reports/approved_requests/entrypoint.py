@@ -22,19 +22,20 @@ HEADERS = [
 
 def generate(client, parameters, progress_callback, renderer_type='xlsx', extra_context_callback=None):
     all_products = utils.get_all_products(parameters)
-    requests = request_approved_requests(client, parameters, all_products)
+    all_requests = request_approved_requests(client, parameters, all_products)
+
     progress = 0
-    total = requests.count()
+    total = all_requests.count()
     config = utils.select_config(parameters)
 
     if renderer_type == 'csv':
         yield HEADERS
 
-    for request in requests:
+    for request in all_requests:
         parameters_list = request['asset']['params']
         for item in request['asset']['items']:
             product = utils.get_value(request['asset'], 'product', 'id')
-            yield _process_line(request, config, product, parameters_list, item)
+            yield _process_line(request, config, product, parameters_list, item, all_products)
         progress += 1
         progress_callback(progress, total)
 
@@ -61,22 +62,26 @@ def request_approved_requests(client, parameters, all_products):
     if parameters.get('mkp') and parameters['mkp']['all'] is False:
         query &= R().marketplace.id.oneof(parameters['mkp']['choices'])
 
-    query &= R().asset.product.id.oneof(all_products)
+    #Here comment this line to avoid only show the products_ids in conf.json
+    #query &= R().asset.product.id.oneof(all_products)
+
     return client.requests.filter(query).order_by("created")
 
 
-def _process_line(request, config, product, parameters_list, item):
+def _process_line(request, config, product, parameters_list, item, all_products):
+    # Columns that you only want to display when the product is in all_products
+    show_if_in_config = product in all_products
 
     return (
         utils.get_basic_value(request, 'id'),  # Request ID
         utils.get_value(request, 'asset', 'id'),  # Connect Subscription ID
         utils.get_value(request, 'asset', 'external_id'),  # End Customer Subscription ID
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'action')),  # Action
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'order')), # Vendor Order #
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'transfer')), # Vendor Transfer #
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'vip')), # Vendor Subscription
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'customer_id')), # Vendor Customer ID
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'discount_group')), # Pricing SKU Level (Volume Discount level)
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'action')) if show_if_in_config else '',  # Action
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'order')) if show_if_in_config else '', # Vendor Order #
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'transfer')) if show_if_in_config else '', # Vendor Transfer #
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'vip')) if show_if_in_config else '', # Vendor Subscription
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'customer_id')) if show_if_in_config else '', # Vendor Customer ID
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'discount_group')) if show_if_in_config else '', # Pricing SKU Level (Volume Discount level)
         utils.get_basic_value(item, 'display_name'),  # Product Description
         utils.get_basic_value(item, 'mpn'),  # Part Number
         utils.get_basic_value(item, 'period'),  # Product Period
@@ -96,10 +101,10 @@ def _process_line(request, config, product, parameters_list, item):
         utils.get_value(request['asset'], 'product', 'id'),  # Product ID
         utils.get_value(request['asset'], 'product', 'name'),  # Product Name
         utils.get_value(request, 'asset', 'status'),  # Subscription Status
-        utils.convert_to_datetime(utils.get_basic_value(request, 'effective_date')),  # Effective  Date
-        utils.convert_to_datetime(utils.get_basic_value(request, 'created')),  # Creation  Date
+        utils.convert_to_datetime(utils.get_basic_value(request, 'effective_date')),  # Effective Date
+        utils.convert_to_datetime(utils.get_basic_value(request, 'created')),  # Creation Date
         utils.get_basic_value(request, 'type'),  # Connect Order Type
-        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'mail')), # Customer Tenant Value
+        utils.get_param_value(parameters_list, utils.get_product_field_name(config, product, 'mail')) if show_if_in_config else '', # Customer Tenant Value
         '',  # Currency (EMPTY)
         utils.get_basic_value(request['asset']['connection'], 'type'),  # Connection Type,
         utils.today_str(),  # Exported At
